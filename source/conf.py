@@ -14,8 +14,6 @@ author = 'meituan'
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
-extensions = ['myst-parser', 'sphinx_theme', 'sphinx', 'sphinx-copybutton', 'sphinx_markdown_tables', \
-     'sphinx_rtd_theme','sphinx-autobuild', 'recommonmark']
 
 
 templates_path = ['_templates']
