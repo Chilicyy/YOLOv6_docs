@@ -7,14 +7,16 @@
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
 #project = 'YOLOv6'
-project = ''
+project = 'YOLOv6_docs'
 copyright = '2022, meituan'
 author = 'meituan'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
-extensions = []
+extensions = ['myst-parser', 'sphinx_theme', 'sphinx', 'sphinx-copybutton', 'sphinx_markdown_tables', \
+     'sphinx_rtd_theme','sphinx-autobuild', 'recommonmark']
+
 
 templates_path = ['_templates']
 exclude_patterns = []
