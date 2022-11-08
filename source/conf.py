@@ -8,7 +8,6 @@ author = 'meituan'
 
 # -- General configuration
 
-language = 'zh_CN'
 
 extensions = [
     'sphinx.ext.duration',
