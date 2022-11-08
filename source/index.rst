@@ -32,6 +32,12 @@ Welcome to YOLOv6's documentation!
 
    部署/index.rst
 
+.. toctree::
+   :maxdepth: 1
+   :caption: Q&A
+
+   常见问题及解决方法
+
 
 .. Indices and tables
 .. ==================
