@@ -24,9 +24,9 @@ language = 'zh_CN'
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
-import sphinx_theme
-html_theme = 'stanford_theme'
-html_theme_path = [sphinx_theme.get_html_theme_path('stanford-theme')]
+#import sphinx_theme
+# html_theme = 'stanford_theme'
+# html_theme_path = [sphinx_theme.get_html_theme_path('stanford-theme')]
 
 # import sphinx_bernard_theme
 # html_theme = 'sphinx_bernard_theme'
@@ -36,8 +36,8 @@ html_static_path = ['_static']
 html_logo = "_static/yolov6_logo.png"
 #html_theme_path = [sphinx_bernard_theme.get_html_theme_path()]
 
-# html_theme = 'alabaster'
-# html_static_path = ['_static']
+html_theme = 'alabaster'
+html_static_path = ['_static']
 
 extensions = [
      'recommonmark',
