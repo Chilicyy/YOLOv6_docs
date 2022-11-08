@@ -24,7 +24,7 @@ language = 'zh_CN'
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
-import sphinx_theme
+
 html_theme = 'stanford_theme'
 html_theme_path = [sphinx_theme.get_html_theme_path('stanford-theme')]
 
