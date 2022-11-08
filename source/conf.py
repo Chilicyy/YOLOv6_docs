@@ -6,8 +6,9 @@ project = 'YOLOv6_docs'
 copyright = '2022, meituan'
 author = 'meituan'
 
-
 # -- General configuration
+
+language = 'zh_CN'
 
 extensions = [
     'sphinx.ext.duration',
