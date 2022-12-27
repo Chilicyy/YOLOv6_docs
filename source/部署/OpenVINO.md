@@ -1,9 +1,19 @@
-# OpenVINO
-For industrial deployment, it has been common practice to adopt quantization to further speed up runtime without much performance compromise. However, due to the heavy use of re-parameterization blocks in YOLOv6, previous PTQ techniques fail to produce high performance, while it is hard to incorporate QAT when it comes to matching fake quantizers during training and inference.
+## Export OpenVINO Model
 
-In order to solve the quantization problem of YOLOv6, we firstly reconstruct the network with RepOptimizer, and then perform well-designed PTQ and QAT skills on this model. Finally we can obtain a SOTA quantized result(mAP 43.3 at 869 QPS) for YOLOv6s.
+### Check requirements
+```shell
+pip install --upgrade pip
+pip install openvino-dev
+```
 
-Specific tutorials, please refer to the following links:
-*  [Tutorial of RepOpt for YOLOv6](./tutorial_repopt.md)
-*  [Tutorial of QAT for YOLOv6](../tools/qat/README.md)
-*  [Partial Quantization](../tools/partial_quantization)
+### Export script
+```shell
+python deploy/OpenVINO/export_openvino.py --weights yolov6s.pt --img 640 --batch 1
+
+```
+
+### Speed test
+```shell
+benchmark_app -m yolov6s_openvino/yolov6s.xml -i data/images/image1.jpg -d CPU -niter 100 -progress
+
+```
