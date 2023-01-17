@@ -70,7 +70,7 @@ make
 ```shell
 ./yolov6 ../you.engine -i image_path
 ```
-# 测试图像
+## 测试图像
 您可以使用 .trt 权重对图像进行测试，只需提供图像目录的路径及其注释路径。
 
 ```
