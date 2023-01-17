@@ -1,11 +1,11 @@
-# Export ONNX Model
+# ONNX 模型导出
 
-## Check requirements
+## 环境依赖
 ```shell
 pip install onnx>=1.10.0
 ```
 
-## Export script
+## 导出脚本
 ```shell
 python ./deploy/ONNX/export_onnx.py \
     --weights yolov6s.pt \
@@ -18,39 +18,37 @@ python ./deploy/ONNX/export_onnx.py \
 
 #### Description of all arguments
 
-- `--weights` : The path of yolov6 model weights.
-- `--img` : Image size of model inputs.
-- `--batch` : Batch size of model inputs.
-- `--half` : Whether to export half-precision model.
-- `--inplace` : Whether to set Detect() inplace.
-- `--simplify` : Whether to simplify onnx. Not support in end to end export.
-- `--end2end` : Whether to export end to end onnx model. Only support onnxruntime and TensorRT >= 8.0.0 .
-- `--trt-version` :  Export onnx for TensorRT version. Support : 7 or 8.
-- `--ort` : Whether to export onnx for onnxruntime backend.
-- `--with-preprocess` : Whether to export preprocess with bgr2rgb and normalize (divide by 255)
-- `--topk-all` : Topk objects for every image.
-- `--iou-thres` : IoU threshold for NMS algorithm.
-- `--conf-thres` : Confidence threshold for NMS algorithm.
-- `--device` : Export device. Cuda device : 0 or 0,1,2,3 ... , CPU : cpu .
+- `--weights` : yolov6 模型权重路径
+- `--img` : 模型输入图片尺寸，默认640
+- `--batch` : 模型输入的批大小
+- `--half` : 是否导出半精度(fp16)模型
+- `--inplace` : 是否需要设置Detect()类inplace为True
+- `--simplify` : 是否采用onnx-sim简化模型，端到端导出模型不支持简化
+- `--end2end` : 是否需要导出端到端的onnx模型，仅支持 onnxruntime 和 TensorRT >= 8.0.0
+- `--trt-version` :  TensorRT 版本，支持7或8
+- `--ort` : 是否为 onnxruntime 后端导出模型
+- `--with-preprocess` : 是否需要预处理操作(bgr2rgb和归一化)
+- `--topk-all` : 保留每张图像的topK个目标
+- `--iou-thres` : NMS算法使用的IOU阈值
+- `--conf-thres` : NMS算法使用的置信度阈值
+- `--device` : 导出时用的环境设备，如显卡0或CPU
 
-## Download
+## 下载
 
-* [YOLOv6-N](https://github.com/meituan/YOLOv6/releases/download/0.2.0/yolov6n.onnx)
-* [YOLOv6-T](https://github.com/meituan/YOLOv6/releases/download/0.2.0/yolov6t.onnx)
-* [YOLOv6-S](https://github.com/meituan/YOLOv6/releases/download/0.2.0/yolov6s.onnx)
-* [YOLOv6-M](https://github.com/meituan/YOLOv6/releases/download/0.2.0/yolov6m.onnx)
-* [YOLOv6-L-ReLU](https://github.com/meituan/YOLOv6/releases/download/0.2.0/yolov6l_relu.onnx)
-* [YOLOv6-L](https://github.com/meituan/YOLOv6/releases/download/0.2.0/yolov6l.onnx)
+* [YOLOv6-N](https://github.com/meituan/YOLOv6/releases/download/0.3.0/yolov6n.onnx)
+* [YOLOv6-S](https://github.com/meituan/YOLOv6/releases/download/0.3.0/yolov6s.onnx)
+* [YOLOv6-M](https://github.com/meituan/YOLOv6/releases/download/0.3.0/yolov6m.onnx)
+* [YOLOv6-L](https://github.com/meituan/YOLOv6/releases/download/0.3.0/yolov6l.onnx)
 
 
-## End2End export
+## 端到端导出模型
 
-Now YOLOv6 supports end to end detect for onnxruntime and TensorRT !
+现在 YOLOv6 支持 onnxruntime 和 TensorRT 的端到端检测！
 
-If you want to deploy in TensorRT, make sure you have installed TensorRT !
+如果你想在 TensorRT 中部署，请确保你已经安装了 TensorRT！
 
-### onnxruntime backend
-#### Usage
+### onnxruntime 后端
+#### 使用方式
 
 ```bash
 python ./deploy/ONNX/export_onnx.py \
@@ -60,11 +58,11 @@ python ./deploy/ONNX/export_onnx.py \
     --end2end \
     --ort
 ```
+您将获得带有 NMS 操作的 onnx 模型。
 
-You will get an onnx with **NonMaxSuppression** operater .
+### TensorRT 后端 (TensorRT version == 7.2.3.4)
+#### 使用方式
 
-### TensorRT backend (TensorRT version == 7.2.3.4)
-#### Usage
 ```bash
 python ./deploy/ONNX/export_onnx.py \
     --weights yolov6s.pt \
@@ -73,12 +71,12 @@ python ./deploy/ONNX/export_onnx.py \
     --end2end \
     --trt-version 7
 ```
-You will get an onnx with **[BatchedNMSDynamic_TRT](https://github.com/triple-Mu/TensorRT/tree/main/plugin/batchedNMSPlugin)** plugin .
+您将获得带有 BatchedNMSDynamic_TRT 插件的 onnx 模型。
 
 
-### TensorRT backend (TensorRT version>= 8.0.0)
+### TensorRT 后端 (TensorRT version>= 8.0.0)
 
-#### Usage
+#### 使用方式
 
 ```bash
 python ./deploy/ONNX/export_onnx.py \
@@ -89,26 +87,26 @@ python ./deploy/ONNX/export_onnx.py \
     --trt-version 8
 ```
 
-You will get an onnx with **[EfficientNMS_TRT](https://github.com/NVIDIA/TensorRT/tree/main/plugin/efficientNMSPlugin)** plugin .
+您将获得带有 BatchedNMSDynamic_TRT 插件的 onnx 模型。
 
-### Outputs Description
+### 输出描述
 
-The onnx outputs are as shown :
+onnx 输出如图所示：
 
 <img src="https://user-images.githubusercontent.com/92794867/176650971-a4fa3d65-10d4-4b65-b8ef-00a2ff13406c.png" height="300px" />
 
-```num_dets``` means the number of object in every image in its batch .
+```num_dets``` 表示其批次中每个图像中的目标数
 
-```det_boxes``` means topk(100) object's location about [`x0`,`y0`,`x1`,`y1`] .
+```det_boxes``` 表示 topk(100) 目标的坐标信息 [`x0`,`y0`,`x1`,`y1`] .
 
-```det_scores``` means the confidence score of every topk(100) objects .
+```det_scores``` 表示每个 topk(100) 个对象的置信度分数
 
-```det_classes``` means the category of every topk(100) objects .
+```det_classes``` 表示每个 topk(100) 个对象的类别
 
+您可以使用 [trtexec](https://docs.nvidia.com/deeplearning/tensorrt/developer-guide/index.html#trtexec-ovr) 工具导出 TensorRT 引擎。
 
-You can export TensorRT engine use [trtexec](https://docs.nvidia.com/deeplearning/tensorrt/developer-guide/index.html#trtexec-ovr) tools.
-#### Usage
-For both TensorRT-7 and TensorRT-8  `trtexec`  tool is avaiable.
+#### 使用方式
+
 ``` shell
 trtexec --onnx=yolov6s.onnx \
         --saveEngine=yolov6s.engine \
@@ -116,16 +114,16 @@ trtexec --onnx=yolov6s.onnx \
         --fp16 # if export TensorRT fp16 model
 ```
 
-## Evaluate TensorRT model's performance
+## 评估 TensorRT 模型性能
 
-When we get the TensorRT model, we can evalute its performance by:
+当我们得到 TensorRT 模型后，我们可以通过以下方式评估其性能：
 ```
 python deploy/ONNX/eval_trt.py --weights yolov6s.engine --batch-size=1 --data data/coco.yaml
 ```
 
-## Dynamic Batch Inference
+## 动态批量推理
 
-YOLOv6 support dynamic batch export and inference, you can refer to:
+YOLOv6支持动态批量导出和推理，请参考以下教程：
 
 [export ONNX model with dynamic batch ](YOLOv6-Dynamic-Batch-onnxruntime.ipynb)
 
